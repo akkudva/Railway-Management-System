@@ -1,0 +1,70 @@
+CREATE TABLE USER
+(
+  username VARCHAR(20) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  PRIMARY KEY (username),
+  UNIQUE (password)
+);
+
+CREATE TABLE STATION
+(
+  Station_Name VARCHAR(20) NOT NULL,
+  Station_No INT NOT NULL,
+  Train_No INT NOT NULL,
+  Arrival_Time TIME NOT NULL,
+  Departure_Time TIME NOT NULL,
+  FOREIGN KEY(Train_No) REFERENCES TRAIN(Train_No)
+  
+);
+
+CREATE TABLE PASSANGER
+(
+  First_Name VARCHAR(20) NOT NULL,
+  Last_Name VARCHAR(20) NOT NULL,
+  Age INT NOT NULL,
+  Gender CHAR(1) NOT NULL,
+  Passenger_id VARCHAR(20) NOT NULL,
+  username VARCHAR(20) NOT NULL,
+  PRIMARY KEY (Passenger_id),
+  FOREIGN KEY (username) REFERENCES USER(username)
+);
+
+CREATE TABLE TRAIN
+(
+  Train_No INT NOT NULL,
+  Train_Name VARCHAR(20) NOT NULL,
+  Starts_At VARCHAR(20) NOT NULL,
+  Stops_At VARCHAR(20) NOT NULL,
+  Departure_Date Date NOT NULL, 
+  PRIMARY KEY (Train_No),
+  FOREIGN KEY (Starts_At) REFERENCES STATION(Station_Name),
+  FOREIGN KEY (Stops_At) REFERENCES STATION(Station_Name)
+);
+
+CREATE TABLE TICKET
+(
+  Ticket_id VARCHAR(20) NOT NULL,
+  Ticket_Status VARCHAR(20) NOT NULL,
+  Train_No INT NOT NULL,
+  Passenger_id VARCHAR(20) NOT NULL,
+  From_Station VARCHAR(20) NOT NULL,
+  To_Station VARCHAR(20) NOT NULL,
+  PRIMARY KEY (Ticket_id),
+  FOREIGN KEY (Passenger_id) REFERENCES PASSANGER(Passenger_id) ON DELETE CASCADE,
+  FOREIGN KEY (From_Station) REFERENCES STATION(Station_Name),
+  FOREIGN KEY (To_Station) REFERENCES STATION(Station_Name),
+  FOREIGN KEY (Train_No) REFERENCES TRAIN(Train_No)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
